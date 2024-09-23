@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.ico" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
@@ -10,34 +10,99 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="../assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="../assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="../assets/css/main.css" />
+
+    <title>ShopGrids</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+          <!-- ========================= JS here ========================= -->
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/tiny-slider.js"></script>
+    <script src="../assets/js/glightbox.min.js"></script>
+    <script src="../assets/js/main.js"></script>
+    <script type="text/javascript">
+        //========= Hero Slider 
+        tns({
+            container: '.hero-slider',
+            slideBy: 'page',
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 0,
+            items: 1,
+            nav: false,
+            controls: true,
+            controlsText: ['<i class="lni lni-chevron-left"></i>', '<i class="lni lni-chevron-right"></i>'],
+        });
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+        //======== Brand Slider
+        tns({
+            container: '.brands-logo-carousel',
+            autoplay: true,
+            autoplayButtonOutput: false,
+            mouseDrag: true,
+            gutter: 15,
+            nav: false,
+            controls: false,
+            responsive: {
+                0: {
+                    items: 1,
+                },
+                540: {
+                    items: 3,
+                },
+                768: {
+                    items: 5,
+                },
+                992: {
+                    items: 6,
+                }
+            }
+        });
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    </script>
+    <script>
+        const finaleDate = new Date("February 15, 2023 00:00:00").getTime();
+
+        const timer = () => {
+            const now = new Date().getTime();
+            let diff = finaleDate - now;
+            if (diff < 0) {
+                document.querySelector('.alert').style.display = 'block';
+                document.querySelector('.container').style.display = 'none';
+            }
+
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            let hours = Math.floor(diff % (1000 * 60 * 60 * 24) / (1000 * 60 * 60));
+            let minutes = Math.floor(diff % (1000 * 60 * 60) / (1000 * 60));
+            let seconds = Math.floor(diff % (1000 * 60) / 1000);
+
+            days <= 99 ? days = `0${days}` : days;
+            days <= 9 ? days = `00${days}` : days;
+            hours <= 9 ? hours = `0${hours}` : hours;
+            minutes <= 9 ? minutes = `0${minutes}` : minutes;
+            seconds <= 9 ? seconds = `0${seconds}` : seconds;
+
+            document.querySelector('#days').textContent = days;
+            document.querySelector('#hours').textContent = hours;
+            document.querySelector('#minutes').textContent = minutes;
+            document.querySelector('#seconds').textContent = seconds;
+
+        }
+        timer();
+        setInterval(timer, 1000);
+    </script>
   </body>
 </html>
